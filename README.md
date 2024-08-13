@@ -4,7 +4,12 @@
 
 Aplicação para atender a questões do [Desafio](./Desafio.md).
 
-# Respondendo a Pergunta 4 do Desafio.
+# L1
+
+![Fluxo L1](./l1.png)
+Branch
+
+# Respondendo a Pergunta 4 do Desafio (L4).
 
 Para evitar a transação simultânea podemos usar Locks e temos algumas alternativas de implementação.
 
@@ -68,3 +73,46 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 - Docker
 - Git
 - JDK 21 ou superior
+
+### 2. Clonar o Repositório
+
+Clone o repositório do projeto:
+
+```sh
+git clone https://github.com/leodelmiro/caju
+```
+
+### 3. Executar o Script de Setup
+
+O projeto inclui um script de setup (`setup.sh`) que automatiza o processo de construção e execução do projeto. O script
+realiza as seguintes operações:
+
+- Para e remove os contêineres Docker, juntamente com seus volumes.
+- Executa a construção do projeto Maven.
+- Inicia os contêineres Docker em modo destacável e reconstrói as imagens se necessário.
+
+Para executar o script, siga os passos abaixo:
+
+#### macOS e Linux
+
+1. **Tornar o Script Executável**:
+
+    ```sh
+    chmod +x setup.sh
+    ```
+
+2. **Executar o Script**:
+
+    ```sh
+    ./setup.sh
+    ```
+
+#### Windows
+
+1. **Executar o Script**:
+
+   No PowerShell ou Git Bash:
+
+    ```sh
+    ./setup.sh
+    ```
