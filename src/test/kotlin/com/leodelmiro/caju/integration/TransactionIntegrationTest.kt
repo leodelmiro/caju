@@ -52,7 +52,7 @@ class TransactionIntegrationTest {
     }
 
     @Test
-    fun `should return code 51 when unavailable balance`() {
+    fun `should return code 51 when insufficient balance`() {
         val transactionRequest = TransactionRequest(
             account = "2",
             totalAmount = BigDecimal(1),
@@ -73,7 +73,7 @@ class TransactionIntegrationTest {
     }
 
     @Test
-    fun `should return code 07 when account not found balance`() {
+    fun `should return code 07 when account not found account`() {
         val transactionRequest = TransactionRequest(
             account = "99999",
             totalAmount = BigDecimal(1),

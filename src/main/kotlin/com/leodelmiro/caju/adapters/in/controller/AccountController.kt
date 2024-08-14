@@ -11,11 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-class AccountController(private val createAccountInputPort: CreateAccountInputPort) {
+class AccountController(private val createAccountInputPort: CreateAccountInputPort) : AccountControllerInterface {
 
     // Fake Controller Just to create a simple Account
     @PostMapping
-    fun create(): ResponseEntity<AccountResponse> {
+    override fun create(): ResponseEntity<AccountResponse> {
         val response = createAccountInputPort.execute().let { AccountResponse.fromDomain(it) }
         val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(response.id).toUri()

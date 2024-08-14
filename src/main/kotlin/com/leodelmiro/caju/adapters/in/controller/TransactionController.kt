@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/transactions")
-class TransactionController(private val createTransactionInputPort: CreateTransactionInputPort) {
+class TransactionController(private val createTransactionInputPort: CreateTransactionInputPort) :
+    TransactionControllerInterface {
 
     @PostMapping
-    fun create(@Valid @RequestBody transactionRequest: TransactionRequest): ResponseEntity<TransactionResponse> =
+    override fun create(@Valid @RequestBody transactionRequest: TransactionRequest): ResponseEntity<TransactionResponse> =
         TransactionResponse(createTransactionInputPort.execute(transactionRequest.toDomain()).code).let {
             ResponseEntity.ok().body(it)
         }

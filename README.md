@@ -101,7 +101,7 @@ Para executar o script, siga os passos abaixo:
     chmod +x setup.sh
     ```
 
-2. **Executar o Script**:
+1. **Executar o Script**:
 
     ```sh
     ./setup.sh
