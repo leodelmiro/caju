@@ -1,9 +1,6 @@
 package com.leodelmiro.caju.application.core.usecase
 
-import com.leodelmiro.caju.application.core.domain.Account
-import com.leodelmiro.caju.application.core.domain.SubAccount
-import com.leodelmiro.caju.application.core.domain.Transaction
-import com.leodelmiro.caju.application.core.domain.TransactionCode
+import com.leodelmiro.caju.application.core.domain.*
 import com.leodelmiro.caju.application.core.domain.exception.InsufficientBalanceException
 import com.leodelmiro.caju.application.ports.`in`.CreateTransactionInputPort
 import com.leodelmiro.caju.application.ports.`in`.GetAccountInputPort
@@ -19,11 +16,10 @@ class CreateTransactionUseCase(
     override fun execute(transaction: Transaction): TransactionCode =
         try {
             val account = getAccount(transaction)
-            val subAccountToDebit = getSubAccountByMcc(account, transaction.mcc)
 
-            withdrawAmountFromAccount(subAccountToDebit, transaction.totalAmount)
+            withdrawAmountFromAccount(account, transaction.mcc, transaction.totalAmount)
 
-            createTransactionAndUpdateBalance(transaction, account, subAccountToDebit)
+            createTransactionAndUpdateBalance(transaction, account)
 
             TransactionCode.APPROVED
         } catch (exception: Exception) {
@@ -39,26 +35,34 @@ class CreateTransactionUseCase(
                 transaction.account = it
             }
 
-    private fun getSubAccountByMcc(
-        account: Account,
-        mcc: String
-    ) = account.subAccounts.first { it.accountType.mcc.contains(mcc) }
-
 
     private fun withdrawAmountFromAccount(
-        subAccountToDebit: SubAccount,
+        account: Account,
+        mcc: String,
         totalAmount: BigDecimal
     ) {
-        if (subAccountToDebit.balance < totalAmount) throw InsufficientBalanceException()
-        subAccountToDebit.withdraw(totalAmount)
+        val subAccountToDebit = account.getSubAccountByMcc(mcc)
+        var amount = subAccountToDebit.withdrawAndReturnRemainder(totalAmount)
+
+        if (isAmountBiggerThanZero(amount)) {
+            if (subAccountToDebit.isCash()) throw InsufficientBalanceException()
+
+            account.getSubAccountCash().let {
+                amount = it.withdrawAndReturnRemainder(amount)
+                if (isAmountBiggerThanZero(amount)) throw InsufficientBalanceException()
+                it.withdrawAndReturnRemainder(amount)
+                return
+            }
+        }
     }
+
+    private fun isAmountBiggerThanZero(amount: BigDecimal) = amount > BigDecimal.ZERO
 
     private fun createTransactionAndUpdateBalance(
         transaction: Transaction,
         account: Account,
-        subAccountToDebit: SubAccount
     ) {
-        createTransactionOutputPort.execute(transaction, account, subAccountToDebit)
+        createTransactionOutputPort.execute(transaction, account)
     }
 
 }

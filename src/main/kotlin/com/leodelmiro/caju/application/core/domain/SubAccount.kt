@@ -7,7 +7,15 @@ data class SubAccount(
     val accountType: AccountType,
     var balance: BigDecimal = BigDecimal(0)
 ) {
-    fun withdraw(amount: BigDecimal) {
-        this.balance -= amount
+    fun withdrawAndReturnRemainder(amount: BigDecimal): BigDecimal {
+        var remainder = amount
+        if (this.balance > remainder) {
+            this.balance -= remainder
+            return BigDecimal.ZERO
+        }
+        remainder -= this.balance.also { this.balance = BigDecimal.ZERO }
+        return remainder
     }
+
+    fun isCash() = this.accountType == AccountType.CASH
 }

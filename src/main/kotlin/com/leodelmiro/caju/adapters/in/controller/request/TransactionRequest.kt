@@ -6,20 +6,19 @@ import jakarta.validation.constraints.*
 import java.math.BigDecimal
 
 data class TransactionRequest(
-    @NotBlank
+    @field:NotBlank
     val account: String,
 
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 19, fraction = 2)
-    @NotNull
+    @field:DecimalMin(value = "0.0", inclusive = false)
+    @field:Digits(integer = 19, fraction = 2)
+    @field:NotNull
     val totalAmount: BigDecimal,
 
-    @NotBlank
-    @Size(min = 4, max = 4)
+    @field:NotBlank
     val mcc: String,
 
-    @NotBlank
-    @Size(max = 255)
+    @field:NotBlank
+    @field:Size(max = 255)
     val merchant: String
 ) {
     fun toDomain() =

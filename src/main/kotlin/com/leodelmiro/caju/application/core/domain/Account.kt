@@ -17,4 +17,12 @@ data class Account(
                 )
         }
     }
+
+    fun getSubAccountByMcc(
+        mcc: String
+    ) = this.subAccounts.firstOrNull { it.accountType.mcc.contains(mcc) }
+        ?: this.subAccounts.first { it.accountType == AccountType.CASH }
+
+
+    fun getSubAccountCash() = this.subAccounts.first { it.accountType == AccountType.CASH }
 }

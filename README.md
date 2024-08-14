@@ -4,10 +4,15 @@
 
 Aplicação para atender a questões do [Desafio](./Desafio.md).
 
+# L2
+
+![Fluxo L2](l2.png)
+[TAG - L2](https://github.com/leodelmiro/caju/releases/tag/L2)
+
 # L1
 
 ![Fluxo L1](./l1.png)
-Branch
+[TAG - L1](https://github.com/leodelmiro/caju/releases/tag/L1)
 
 # Respondendo a Pergunta 4 do Desafio (L4).
 
@@ -116,3 +121,11 @@ Para executar o script, siga os passos abaixo:
     ```sh
     ./setup.sh
     ```
+
+## Endpoints
+
+Os Endpoints da aplicação, podem ser acessados pelo Swagger ao rodar o projeto na
+url http://localhost:8080/swagger-ui/index.html
+
+**Caso preferir pode importar a collection Insomnia que se encontra no projeto, no arquivo Insomnia Collection, porém será
+necessário o Insomnia instalado.**
