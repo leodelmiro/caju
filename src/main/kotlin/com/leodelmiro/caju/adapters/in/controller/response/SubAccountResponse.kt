@@ -1,4 +1,4 @@
-package com.leodelmiro.caju.adapters.`in`.response
+package com.leodelmiro.caju.adapters.`in`.controller.response
 
 import com.leodelmiro.caju.application.core.domain.AccountType
 import com.leodelmiro.caju.application.core.domain.SubAccount

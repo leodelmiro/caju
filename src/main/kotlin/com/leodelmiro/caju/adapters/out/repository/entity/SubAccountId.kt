@@ -11,5 +11,5 @@ data class SubAccountId(
     val account: AccountEntity? = null,
 
     @Enumerated(EnumType.STRING)
-    val accountType: AccountType
+    val accountType: AccountType? = null
 ) : Serializable

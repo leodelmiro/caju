@@ -1,5 +1,7 @@
 package com.leodelmiro.caju.adapters.out.repository.entity
 
+import com.leodelmiro.caju.application.core.domain.Account
+import com.leodelmiro.caju.application.core.domain.AccountType
 import com.leodelmiro.caju.application.core.domain.SubAccount
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
@@ -10,17 +12,16 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_sub_account")
-data class SubAccountEntity(
+class SubAccountEntity(
     @EmbeddedId
-    val id: SubAccountId,
+    val id: SubAccountId? = null,
     val balance: BigDecimal = BigDecimal(0),
     @CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now()
 ) {
 
     fun toDomain() = SubAccount(
-        account = this.id.account?.toDomain(),
-        accountType = this.id.accountType,
+        accountType = this.id?.accountType ?: AccountType.CASH,
         balance = this.balance
     )
 

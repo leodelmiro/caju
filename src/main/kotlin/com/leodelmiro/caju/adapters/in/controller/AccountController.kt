@@ -1,6 +1,6 @@
-package com.leodelmiro.caju.adapters.`in`
+package com.leodelmiro.caju.adapters.`in`.controller
 
-import com.leodelmiro.caju.adapters.`in`.response.AccountResponse
+import com.leodelmiro.caju.adapters.`in`.controller.response.AccountResponse
 import com.leodelmiro.caju.application.ports.`in`.CreateAccountInputPort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

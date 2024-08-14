@@ -1,6 +1,6 @@
 package com.leodelmiro.caju.application.core.domain
 
-enum class AccountType(private val mcc: Set<String>) {
+enum class AccountType(val mcc: Set<String>) {
     FOOD(setOf("5411", "5412")),
     MEAL(setOf("5811", "5812")),
     CASH(setOf());

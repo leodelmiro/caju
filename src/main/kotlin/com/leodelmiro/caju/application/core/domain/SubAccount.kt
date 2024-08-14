@@ -3,7 +3,11 @@ package com.leodelmiro.caju.application.core.domain
 import java.math.BigDecimal
 
 data class SubAccount(
-    val account: Account?,
+    val account: Account? = null,
     val accountType: AccountType,
-    val balance: BigDecimal = BigDecimal(0)
-)
+    var balance: BigDecimal = BigDecimal(0)
+) {
+    fun withdraw(amount: BigDecimal) {
+        this.balance -= amount
+    }
+}
