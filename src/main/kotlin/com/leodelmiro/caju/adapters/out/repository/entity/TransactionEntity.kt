@@ -9,8 +9,8 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "tb_transaction")
 class TransactionEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @ManyToOne
@@ -23,7 +23,7 @@ class TransactionEntity(
 
     val merchant: String? = null,
 
-    @CreationTimestamp
+    @field:CreationTimestamp
     val createdAt: LocalDateTime = LocalDateTime.now()
 ) {
     fun toDomain() = Transaction(

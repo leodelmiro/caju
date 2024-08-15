@@ -21,3 +21,10 @@ CREATE TABLE IF NOT EXISTS tb_transaction (
     created_at TIMESTAMP DEFAULT NOW(),
     CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES tb_account(id)
 );
+
+CREATE TABLE IF NOT EXISTS tb_merchant (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    mcc VARCHAR(4) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);

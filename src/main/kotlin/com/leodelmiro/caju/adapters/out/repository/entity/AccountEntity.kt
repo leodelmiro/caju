@@ -8,8 +8,8 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "tb_account")
 data class AccountEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     @OneToMany(mappedBy = "id.account", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     var subAccounts: List<SubAccountEntity> = listOf(),

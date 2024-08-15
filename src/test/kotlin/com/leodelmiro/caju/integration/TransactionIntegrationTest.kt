@@ -30,8 +30,8 @@ class TransactionIntegrationTest {
     private lateinit var objectMapper: ObjectMapper
 
     @ParameterizedTest
-    @ValueSource(strings = ["5411","5412","5811","5812", "1234"])
-    fun `should return code 00 and create transaction when available balance` (mcc: String) {
+    @ValueSource(strings = ["5411", "5412", "5811", "5812", "1234"])
+    fun `should return code 00 and create transaction when available balance`(mcc: String) {
         val transactionRequest = TransactionRequest(
             account = "1",
             totalAmount = BigDecimal(100.00),
@@ -115,13 +115,34 @@ class TransactionIntegrationTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["5411","5412","5811","5812", "1234"])
-    fun `should return code 00 and create transaction when available balance on cash` (mcc: String) {
+    @ValueSource(strings = ["5411", "5412", "5811", "5812", "1234"])
+    fun `should return code 00 and create transaction when available balance on cash`(mcc: String) {
         val transactionRequest = TransactionRequest(
             account = "3",
             totalAmount = BigDecimal(100.00),
             mcc = mcc,
             merchant = "PADARIA DO ZE               SAO PAULO BR"
+        )
+
+        val result = mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/v1/transactions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(transactionRequest))
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
+
+        val response = objectMapper.readValue(result.response.contentAsString, TransactionResponse::class.java)
+        assertEquals(TransactionCode.APPROVED.code, response.code)
+    }
+
+    @Test
+    fun `should return code 00 and create transaction when available balance of Merchant even with MCC unavailable`() {
+        val transactionRequest = TransactionRequest(
+            account = "4",
+            totalAmount = BigDecimal(100.00),
+            mcc = "1234",
+            merchant = "UBER EATS               SAO PAULO BR"
         )
 
         val result = mockMvc.perform(

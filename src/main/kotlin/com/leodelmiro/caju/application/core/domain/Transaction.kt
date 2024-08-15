@@ -7,7 +7,7 @@ class Transaction (
     val id: Long? = null,
     var account: Account? = null,
     val totalAmount: BigDecimal = BigDecimal(0),
-    val mcc: String,
+    var mcc: String,
     val merchant: String,
     val createdAt: LocalDateTime = LocalDateTime.now()
 )

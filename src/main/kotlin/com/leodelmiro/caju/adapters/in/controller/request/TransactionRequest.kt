@@ -15,6 +15,7 @@ data class TransactionRequest(
     val totalAmount: BigDecimal,
 
     @field:NotBlank
+    @field:Size(max = 4, min = 4)
     val mcc: String,
 
     @field:NotBlank
